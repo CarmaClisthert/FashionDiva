@@ -17,7 +17,7 @@ def login():
         password = request.form.get('password')
         # data to return
         return f"Email: {email}, Password: {password}"
-    return render_template("login.html")
+    return render_template("SignIn.html")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>Loading Screen</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:100%;
+            background-color: #36115F;
+        }
+        .loader {
+            border: 16px solid #943EFD; /* Light purple */
+            border-top: 16px solid #DE84AE; /* Pink */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+        }
+        .loader{
+            position: absolute;
+            top: 370px;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+.star {
+	position: fixed;
+	pointer-events: none;
+}
+
+.star:before, .star:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '\2726';
+	font-size: 9px;
+}
+
+.star:before {
+	color: transparent;
+	text-shadow: 0 0 3px rgb(250, 250, 174);
+}
+
+.star:after {
+	background: yellow;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="spaceLOGO.png" style="width: 400px; height: auto;">
+    </div>
+    
+    <div class="loader"></div>
+    <script>
+        // Simulate loading process
+        setTimeout(() => {
+            window.location.href = "SignIn.html"; // Redirect to the main page after loading
+        }, 3000); // 3 seconds delay
+
+        window.addEventListener('mousemove', function(e) {
+      var arr = [1, 0.9, 0.8, 0.5, 0.2];
+
+      arr.forEach(function(i) {
+        var x = (1 - i) * 75;
+        var star = document.createElement('div');
+
+        star.className = 'star';
+        star.style.top = e.pageY + Math.round(Math.random() * x - x / 2) + 'px';
+        star.style.left = e.pageX + Math.round(Math.random() * x - x / 2) + 'px';
+
+        document.body.appendChild(star);
+
+        window.setTimeout(function() {
+          document.body.removeChild(star);
+        }, Math.round(Math.random() * i * 600));
+      });
+    }, false);
+
+    </script>
+</body>
+
+</html>

@@ -5,6 +5,9 @@ from flask import(
 )
 from werkzeug.utils import secure_filename
 
+from FlaskDB.db import get_db
+from FlaskDB.auth import load_logged_in_user
+
 bp = Blueprint('wardrobe', __name__, url_prefix='/wardrobe')
 
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -16,6 +19,7 @@ def allowed_file(filename):
 @bp.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -29,7 +33,15 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('wardrobe.upload_file', name=filename))
+
+            db = get_db()
+            db.execute(
+                'INSERT INTO clothing_items (user_id, image_path) VALUES(?, ?)',
+                (session['user_id'], filename),
+            )
+            db.commit()
+            return redirect(url_for('wardrobe.debug_db'))
+            #return redirect(url_for('wardrobe.upload_file', name=filename))
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -39,3 +51,11 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+
+@bp.route('/debug')
+def debug_db():
+    db = get_db()
+    items = db.execute('SELECT * FROM clothing_items').fetchall()
+    for item in items:
+        print(dict(item))  # convert Row object to dictionary
+    return "Check console for output"

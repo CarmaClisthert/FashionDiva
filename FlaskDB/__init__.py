@@ -9,7 +9,6 @@ import os
 from flask import Flask
 
 UPLOAD_FOLDER = 'FlaskDB/wardrobe_uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def create_app(test_config=None):
     # create and configure the app
@@ -17,6 +16,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'FlaskDB.sqlite'),
+        UPLOAD_FOLDER = UPLOAD_FOLDER,
     )
 
     if test_config is None:
@@ -26,7 +26,6 @@ def create_app(test_config=None):
         # Load the test config if passed in 
         app.config.from_mapping(test_config)
 
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)

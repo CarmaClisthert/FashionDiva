@@ -1,7 +1,7 @@
 import os
 
 from flask import(
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 )
 from werkzeug.utils import secure_filename
 
@@ -28,14 +28,14 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(bp.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('download_file', name=filename))
+            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('wardrobe.upload_file', name=filename))
     return '''
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
     <form method=post enctype=multipart/form-data>
-        <input type=file name=file>
-        <input type=submit value=Upload>
+      <input type=file name=file>
+      <input type=submit value=Upload>
     </form>
     '''

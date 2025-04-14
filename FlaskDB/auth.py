@@ -62,7 +62,7 @@ def login():
             session.clear()
             session['user_id'] = user['id']
             # Change this to the main page once logged in
-            return redirect(url_for('wardrobe'))
+            return redirect(url_for('wardrobe.upload_file'))
             #return render_template('wardrobe.html')
         
         flash(error)

@@ -42,6 +42,7 @@ def register():
 
     return render_template('auth/SignIn.html')
 
+# On successful login route to Main Menu
 @bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':

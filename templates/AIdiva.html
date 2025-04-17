@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+    .container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        height: 300px;
+        background-color: aqua;
+        border-radius: 50%;
+        cursor: pointer;
+        overflow: hidden;
+        transition: width 0.5s ease, border-radius 0.5s ease;
+    }
+
+    h1 {
+        color: rgb(255, 0, 166);
+        font-size: 50px;
+        margin: 0;
+    }
+
+    p {
+        color: rgb(8, 8, 8);
+        font-size: 15px;
+        margin: 0;
+    }
+
+    .container.expanded {
+        width: 600px;
+        border-radius: 10%;
+        justify-content: flex-start;
+        padding-left: 30px;
+    }
+
+    .circular-image {
+        border-radius: 50%; 
+        width: 270px; 
+        height: 270px; 
+        object-fit: cover;
+        transition: transform 0.3s;
+        flex-shrink: 0;
+        z-index: 1;
+    }
+
+    .options {
+        opacity: 0;
+        pointer-events: none;
+        margin-left: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: opacity 0.3s ease 0.2s;
+        z-index: 1;
+    }
+
+    .container.expanded .options {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .container:not(.expanded) .options {
+        display: none;
+    }
+
+    .option-button {
+        padding: 10px;
+        border: none;
+        background-color: #7e23cd;
+        color: white;
+        font-size: 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .option-button:hover {
+        background-color: #5f1b9c;
+    }
+
+    #response-text {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="main-container" onclick="toggleExpand(this)">
+    <img src="THEdiva.jpg" alt="Diva Image" class="circular-image">
+    <div class="options" onclick="event.stopPropagation()" id="options-box">
+        <h1>Hey Diva!</h1>
+        <p>What do you need help with?</p>
+        <div id="buttons-box" style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="option-button" onclick="handleChoice('Let’s find a fabulous new top for you!')">I need a new shirt!</button>
+            <button class="option-button" onclick="handleChoice('Not feeling the pants? Let’s swap them out.')">I don't like these pants!</button>
+            <button class="option-button" onclick="handleChoice('Ooo! Accessory time — let’s add a little sparkle!')">Spice this up with an accessory!</button>
+            <button class="option-button" onclick="handleChoice('Steppin’ out in style — new shoes coming up!')">I'm going to need a different shoe!</button>
+        </div>
+        <div id="response-text"></div>
+    </div>
+</div>
+
+<script>
+    function toggleExpand(el) {
+        el.classList.toggle("expanded");
+    }
+
+    function handleChoice(message) {
+        const buttonsBox = document.getElementById("buttons-box");
+        const responseText = document.getElementById("response-text");
+        const container = document.getElementById("main-container");
+
+        buttonsBox.style.display = "none";
+
+        responseText.innerText = message;
+
+        setTimeout(() => {
+            container.classList.remove("expanded");
+        }, 1000);
+
+        setTimeout(() => {
+            buttonsBox.style.display = "flex";
+            responseText.innerText = "";
+        }, 1600); 
+    }
+</script>
+
+</body>
+</html>

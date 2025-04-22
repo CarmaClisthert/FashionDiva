@@ -124,6 +124,7 @@
     </div>
 
     <br><br><br><br><br><br><br><br><br><br>
+    <!--
     <div class="upload">
         <h2>Upload Items</h2>
         <input type="file" id="fileUpload" multiple /> <br>
@@ -131,7 +132,23 @@
         <div id="uploadMessage"></div>
         <div id="preview"></div>
     </div>
+    -->
+    {% block content %}
+    <!-- Upload Form-->
+    <form action="{{ url_for('wardrobe.upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Upload</button>
+    </form>
 
+    <!-- Show Wardrobe Items -->
+     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">
+        {% for item in items %}
+            <div style="text-align: center;">
+                <img src="{{ url_for('static', filename='uploads/' + item['filename']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+            </div>
+        {% endfor %}
+     </div>
+     {% endblock %}
     <script>
         function uploadItems() {
             const uploadMessage = document.getElementById('uploadMessage');

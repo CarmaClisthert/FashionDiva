@@ -28,7 +28,7 @@ def create_app():
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('signup'))
-
+    
     @app.route("/signup", methods=['GET', 'POST'])
     def signup():
         if request.method == 'POST':
@@ -44,14 +44,13 @@ def create_app():
                 flash('Passwords do not match', 'error')
             else:
                 add_user(name, password)
-                return redirect(url_for('signup'))
+                return redirect(url_for('wardrobe.upload'))
         
         return render_template("signin.html")
-    
-    @app.route("/upload-closet")
-    def upload_closet():
-        return render_template('upload_closet.html')
-        
+
+    # blueprint to upload clothing items and to view them    
+    import wardrobe
+    app.register_blueprint(wardrobe.bp)
 
     @app.route("/main")
     def main():

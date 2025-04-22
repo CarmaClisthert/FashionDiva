@@ -6,3 +6,15 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 
+CREATE TABLE clothing_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    image_path TEXT NOT NULL,
+    --item_type TEXT,
+    --attributes TEXT,
+    --embedding BLOB,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+

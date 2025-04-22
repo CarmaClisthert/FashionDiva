@@ -28,7 +28,7 @@ def create_app():
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('signup'))
-
+    
     @app.route("/signup", methods=['GET', 'POST'])
     def signup():
         if request.method == 'POST':
@@ -75,11 +75,7 @@ def create_app():
     @app.route("/closetsaved")
     def closetsaved():
         return render_template("saved_closet.html")
-        
   
-
-
-        
     @app.route("/main")
     def main():
         return render_template("mainpage.html")

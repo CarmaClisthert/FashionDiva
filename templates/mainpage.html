@@ -29,6 +29,7 @@
 
     }
 
+
     .greeting h1 {
       color: #000;
       font-size: 40px;
@@ -76,7 +77,6 @@
       flex-shrink: 0;
       aspect-ratio: 35/104;
     }
-
     .button {
   display: inline-block; 
   max-width: 150px;      
@@ -91,6 +91,7 @@
 
       
   </style>
+  
 </head>
 <body onload="dateTime()" style="color: white;">
 
@@ -106,11 +107,13 @@
 </div>
 
 
+
   <!-- Main content area -->
   <div class="main-content">
     
     <!-- Sidebar -->
     <div class="sidebar">
+
       <div class="button">
         <a href="{{ url_for('tops') }}">
           <img src="{{ url_for('static', filename='ICONshirt.png') }}" alt="ICONSHIRT" class="icon-img">
@@ -150,6 +153,7 @@
     <img src="{{ url_for('static', filename='avatar.png') }}" class="model" alt="3D Model"> <!-- 3D Model Image-->
                                      
     </div>
+
   </div>
   
   <!-- Link to the external JavaScript file -->

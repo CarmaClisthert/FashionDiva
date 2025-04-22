@@ -45,13 +45,37 @@ def create_app():
             else:
                 add_user(name, password)
                 return redirect(url_for('wardrobe.upload'))
-        
-        return render_template("signin.html")
 
-    # blueprint to upload clothing items and to view them    
+        return render_template("signin.html")
+        
+        # blueprint to upload clothing items and to view them
     import wardrobe
     app.register_blueprint(wardrobe.bp)
-
+    
+    @app.route("/tops")
+    def tops():
+        return render_template("tops.html")
+        
+    @app.route("/pants")
+    def pants():
+        return render_template("pants.html")
+        
+    @app.route("/accessories")
+    def accessories():
+        return render_template("accessories.html")
+        
+    @app.route("/shoes")
+    def shoes():
+        return render_template("shoes.html")
+    
+    @app.route("/uploadcloset")
+    def upload_closet():
+        return render_template("upload_closet.html")
+        
+    @app.route("/closetsaved")
+    def closetsaved():
+        return render_template("saved_closet.html")
+  
     @app.route("/main")
     def main():
         return render_template("mainpage.html")

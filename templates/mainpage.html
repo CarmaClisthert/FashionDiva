@@ -77,38 +77,35 @@
       flex-shrink: 0;
       aspect-ratio: 35/104;
     }
+    .button {
+  display: inline-block; 
+  max-width: 150px;      
+  margin: 10px;           
+}
+
+.icon-img {
+  width: 100%;           
+  height: auto;          
+  display: block;       
+}
+
       
   </style>
-  <script>
-      function dateTime(){
-        var date=new Date();
-        var h=date.getHours();
-          
-        if (h<12){
-          document.getElementById("demo").innerHTML="Good Morning Diva!";
-        }	
-        else if (h>=12 && h<=17){
-          document.getElementById("demo").innerHTML="Good Afternoon Diva!";;
-        }
-        else {
-          document.getElementById("demo").innerHTML="Good Evening Diva!";;
-        }
-    }
-  </script>
+  
 </head>
-<body>
+<body onload="dateTime()" style="color: white;">
 
   <!-- Top bar with two logos -->
   <div class="top">
 
-      <img src="spaceLOGO.png" style="width: 200px; height: auto;" alt="Fashion Diva Logo"> <!-- Left Logo -->
-        <body onload="dateTime()" style="color: white;">
-          <p id="demo"></p>
+    <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto; margin-right: 50px;" alt="Fashion Diva Logo"> <!-- Left Logo -->
+    <p id="demo"></p> 
 
-        <a href="{{ url_for('upload_closet') }}">
-            <img src="arrow.png" alt="Left Logo" class="logo" style="cursor: pointer; width: 60px; height: 60px; flex-shrink: 0;">
-        </a><!-- Right Logo -->
-  </div>
+    <a href="{{ url_for('upload_closet') }}">
+        <img src="{{ url_for('static', filename='arrow.png') }}" alt="Left Logo" class="logo" style="cursor: pointer; width: 60px; height: 60px; flex-shrink: 0; margin-left: 50px;">
+    </a><!-- Right Logo -->
+</div>
+
 
 
   <!-- Main content area -->
@@ -116,21 +113,71 @@
     
     <!-- Sidebar -->
     <div class="sidebar">
-      <div class="button"><img src="ICONshirt.png" height=90%></div>
-      <div class="button"><img src="ICONpant.png" height=90%></div>
-      <div class="button"><img src="ICONaccessory.png" height=90%></div>
-      <div class="button"><img src="ICONshoe.png" height=90%></div>
-    </div>
 
+      <div class="button">
+        <a href="{{ url_for('tops') }}">
+          <img src="{{ url_for('static', filename='ICONshirt.png') }}" alt="ICONSHIRT" class="icon-img">
+        </a>
+      </div>
+      
+
+      <div class="button">
+        <a href="{{ url_for('pants') }}">
+        <img src="{{ url_for('static', filename='ICONpant.png') }}" alt="ICONpant" class="icon-img">
+        </a>
+      </div>
+
+
+      <div class="button">
+        <a href="{{ url_for('accessories') }}">
+        <img src="{{ url_for('static', filename='ICONaccessory.png') }}" alt="ICONaccessory" class="icon-img">
+      </a>
+      </div>
+
+
+      <div class="button">
+        <a href="{{ url_for('shoes') }}">
+        <img src="{{ url_for('static', filename='ICONshoe.png') }}"  alt="ICONshoe" class="icon-img">
+      </a>
+    </div>
+    </div>
+   
+  <!-- AI Interface Placeholder -->
+  <div class="ai-interface">
+    <div>AI INTERFACE</div>
+    <div>PLACEHOLDER</div>
+  </div>
  
 
     <!-- 3D Model -->
-    <img src="avatar.png"  class="model" alt="3D Model"> 
-                                                              
+    <img src="{{ url_for('static', filename='avatar.png') }}" class="model" alt="3D Model"> <!-- 3D Model Image-->
+                                     
+    </div>
+
   </div>
   
   <!-- Link to the external JavaScript file -->
   <script src="{{ url_for('static', filename='glitter.js') }}"></script>
 
+
+  <script>
+    function dateTime(){
+      var date=new Date();
+      var h=date.getHours();
+        
+      if (h<12){
+        document.getElementById("demo").innerHTML="Good Morning Diva!";
+      }	
+      else if (h>=12 && h<=17){
+        document.getElementById("demo").innerHTML="Good Afternoon Diva!";;
+      }
+      else {
+        document.getElementById("demo").innerHTML="Good Evening Diva!";;
+      }
+  }
+</script>
+
 </body>
 </html>
+
+

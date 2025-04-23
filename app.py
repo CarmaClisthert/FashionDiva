@@ -24,7 +24,7 @@ def create_app():
 
         user = get_user(username)
         if user and user['password'] == password:
-            return redirect(url_for('main'))
+            return redirect(url_for('wardrobe.veiw_wardrobe'))
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('signup'))
@@ -44,7 +44,7 @@ def create_app():
                 flash('Passwords do not match', 'error')
             else:
                 add_user(name, password)
-                return redirect(url_for('wardrobe.upload'))
+                return redirect(url_for('signup'))
         
         return render_template("signin.html")
 

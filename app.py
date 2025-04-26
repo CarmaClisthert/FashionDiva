@@ -24,7 +24,7 @@ def create_app():
 
         user = get_user(username)
         if user and user['password'] == password:
-            return redirect(url_for('main'))
+            return redirect(url_for('wardrobe.veiw_wardrobe'))
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('signup'))
@@ -44,14 +44,14 @@ def create_app():
                 flash('Passwords do not match', 'error')
             else:
                 add_user(name, password)
-                return redirect(url_for('wardrobe.upload'))
-
-        return render_template("signin.html")
+                return redirect(url_for('signup'))
         
-        # blueprint to upload clothing items and to view them
+        return render_template("signin.html")
+
+    # blueprint to upload clothing items and to view them    
     import wardrobe
     app.register_blueprint(wardrobe.bp)
-    
+
     @app.route("/tops")
     def tops():
         return render_template("tops.html")
@@ -79,5 +79,5 @@ def create_app():
     @app.route("/main")
     def main():
         return render_template("mainpage.html")
-
+    
     return app

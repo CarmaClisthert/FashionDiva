@@ -23,12 +23,10 @@
       z-index: 1000;
     }
 
-    .top-bar img.logo {
+    .top img.logo {
       width: 118px;
       height: auto; /* Maintain aspect ratio */
-
     }
-
 
     .greeting h1 {
       color: #000;
@@ -77,60 +75,209 @@
       flex-shrink: 0;
       aspect-ratio: 35/104;
     }
-      
-  </style>
-  <script>
-      function dateTime(){
-        var date=new Date();
-        var h=date.getHours();
-          
-        if (h<12){
-          document.getElementById("demo").innerHTML="Good Morning Diva!";
-        }	
-        else if (h>=12 && h<=17){
-          document.getElementById("demo").innerHTML="Good Afternoon Diva!";;
-        }
-        else {
-          document.getElementById("demo").innerHTML="Good Evening Diva!";;
-        }
+
+    .button {
+      display: inline-block; 
+      max-width: 150px;      
+      margin: 10px;           
     }
-  </script>
+
+    .icon-img {
+      width: 100%;           
+      height: auto;          
+      display: block;       
+    }
+
+    #ai-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f659e1;
+    color: white;
+    width: 60px; /* Set width */
+    height: 60px; /* Set height */
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
+    z-index: 1001;
+    display: flex; /* Center the image */
+    justify-content: center; /* Center the image */
+    align-items: center; /* Center the image */
+    overflow: hidden; /* Clip overflow */
+  }
+
+    #ai-button img {
+      width: 100%; /* Make the image fill the button */
+      height: auto; /* Ratio */
+    }
+
+    #ai-button:hover {
+      background-color: #0099cc;
+    }
+
+    .ai-popup {
+      display: none;
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 700px;
+      height: 300px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1002;
+      overflow: hidden;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: #f44336;
+      border: none;
+      color: white;
+      font-size: 14px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1003;
+    }
+
+
+    .ai-interface {
+      width: 900px;
+      height: 588px;
+      flex-shrink: 0;
+      background-color: #e6e6e6;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 24px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      padding: 10px;
+    }
+    
+    .close-btn {
+      align-self: flex-end;
+      padding: 8px 12px;
+      cursor: pointer;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 0 10px 0 10px;
+      font-size: 14px;
+    }
+
+ 
+  </style>
+  <link style="text/css" rel="stylesheet" href="{{ url_for('static', filename='glitter.css') }}"></link>
+  
 </head>
-<body>
+
+<body onload="dateTime()" style="color: white;">
 
   <!-- Top bar with two logos -->
   <div class="top">
-
-      <img src="spaceLOGO.png" style="width: 200px; height: auto;" alt="Fashion Diva Logo"> <!-- Left Logo -->
-        <body onload="dateTime()" style="color: white;">
-          <p id="demo"></p>
-
-        <a href="{{ url_for('upload_closet') }}">
-            <img src="arrow.png" alt="Left Logo" class="logo" style="cursor: pointer; width: 60px; height: 60px; flex-shrink: 0;">
-        </a><!-- Right Logo -->
+    <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto; margin-right: 50px;" alt="Fashion Diva Logo">
+    <p id="demo"></p> 
+    <a href="{{ url_for('upload_closet') }}">
+      <img src="{{ url_for('static', filename='arrow.png') }}" alt="Back Button" class="logo" style="cursor: pointer; width: 60px; height: 60px; margin-left: 50px;">
+    </a>
   </div>
-
 
   <!-- Main content area -->
   <div class="main-content">
-    
+
     <!-- Sidebar -->
     <div class="sidebar">
-      <div class="button"><img src="ICONshirt.png" height=90%></div>
-      <div class="button"><img src="ICONpant.png" height=90%></div>
-      <div class="button"><img src="ICONaccessory.png" height=90%></div>
-      <div class="button"><img src="ICONshoe.png" height=90%></div>
-    </div>
+      <div class="button" onclick="loadPage('{{ url_for('tops') }}')">
+        <img src="{{ url_for('static', filename='ICONshirt.png') }}" alt="ICONSHIRT" class="icon-img">
+      </div>
+      
+      <div class="button" onclick="loadPage('{{ url_for('pants') }}')">
+        <img src="{{ url_for('static', filename='ICONpant.png') }}" alt="ICONpant" class="icon-img">
+      </div>
+      
+      <div class="button" onclick="loadPage('{{ url_for('accessories') }}')">
+        <img src="{{ url_for('static', filename='ICONaccessory.png') }}" alt="ICONaccessory" class="icon-img">
+      </div>
+      
+      <div class="button" onclick="loadPage('{{ url_for('shoes') }}')">
+        <img src="{{ url_for('static', filename='ICONshoe.png') }}" alt="ICONshoe" class="icon-img">
+      </div>
+    </div> <!-- END Sidebar -->
 
- 
+    <!-- AI Interface -->
+    <div class="ai-interface">
+      <iframe id="ai-frame" src="" frameborder="0" width="100%" height="100%"></iframe>
+    </div>
+    
 
     <!-- 3D Model -->
-    <img src="avatar.png"  class="model" alt="3D Model"> 
-                                                              
+    <img src="{{ url_for('static', filename='avatar.png') }}" class="model" alt="3D Model">
+
+  </div> <!-- END Main Content -->
+
+  <!-- AI Button floating at bottom right Floating AI Button -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1001;">
+    <!-- Popup -->
+    <div id="ai-popup" class="ai-popup">
+      <button class="close-popup" onclick="closePopup()">X</button>
+      <iframe src="{{ url_for('ai_page') }}" width="100%" height="100%" style="border: none; border-radius: 10px;"></iframe>
+    </div>
+
+    <!-- Floating Button -->
+    <div id="ai-button" onclick="togglePopup()">
+      <img src="{{ url_for('static', filename='THEdiva.jpg') }}" alt="DivaLogo">
+    </div>
   </div>
-  
-  <!-- Link to the external JavaScript file -->
+
+
+
+  <!-- External Glitter Script -->
   <script src="{{ url_for('static', filename='glitter.js') }}"></script>
+
+  <!-- Page Script -->
+  <script>
+    function dateTime() {
+      var date = new Date();
+      var h = date.getHours();
+      
+      if (h < 12) {
+        document.getElementById("demo").innerHTML = "Good Morning Diva!";
+      } else if (h >= 12 && h <= 17) {
+        document.getElementById("demo").innerHTML = "Good Afternoon Diva!";
+      } else {
+        document.getElementById("demo").innerHTML = "Good Evening Diva!";
+      }
+    }
+
+    function togglePopup() {
+      const popup = document.getElementById("ai-popup");
+      popup.style.display = (popup.style.display === "block") ? "none" : "block";
+    }
+
+    function closePopup() {
+      document.getElementById("ai-popup").style.display = "none";
+    }
+
+    
+
+    function loadPage(url) {
+      var iframe = document.getElementById('ai-frame');
+      iframe.style.opacity = 0; // Start fade out
+      setTimeout(function() {
+        iframe.src = url; // Change source after fading out
+        iframe.style.opacity = 1; // Fade in the new page
+      }, 300); // Matches CSS transition time
+    }
+  </script>
+  
+<script src="{{ url_for('static', filename='glitter.js') }}"></script>
 
 </body>
 </html>

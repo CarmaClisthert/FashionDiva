@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diva's Shoes</title>
+  <link rel="stylesheet">
+
+  <style>
+    :root {
+      --text-black: rgba(0, 0, 0, 1);
+      --pink: rgba(255, 131, 216, 1);
+      --purple: rgba(222, 132, 174, 1);
+      --blue: rgba(2, 195, 241, 1);
+      --lavender: rgba(222, 204, 244, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: url('https://cur.cursors-4u.net/nature/nat-11/nat1053.cur'), auto;
+    }
+
+    body {
+      font-family: var(--font-indie);
+      background-color: var(--lavender);
+      color: var(--text-black);
+      padding-top: 200px; 
+      overflow-x: hidden;
+    }
+
+    .top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 140px;
+      width: 100%;
+      background-color: #36115F;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .top img {
+      width: 200px;
+      height: auto;
+    }
+
+    .title {
+      position: fixed;
+      top: 140px;
+      left: 0;
+      right: 0;
+      background-color: var(--lavender);
+      font-size: 64px;
+      text-align: center;
+      padding: 5px;
+      z-index: 500;
+    }
+
+    .container {
+      display: flex;
+      padding:5px;
+      margin-top: 5%;
+      height: calc(100vh - 200px); 
+    }
+
+    .left-panel {
+      width: 50%;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .right-panel {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--purple);
+    }
+
+    .avatar img {
+      width: 90%;
+      height: auto;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 16px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-item {
+      background-color: var(--pink);
+      padding: 20px;
+      border-radius: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+    }
+
+    .decor-img {
+      background-color: var(--blue);
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+    }
+    .star {
+	position: fixed;
+	pointer-events: none;
+}
+
+.star:before, .star:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '\2726';
+	font-size: 9px;
+}
+
+.star:before {
+	color: transparent;
+	text-shadow: 0 0 3px rgb(250, 250, 174);
+}
+
+.star:after {
+	background: yellow;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .left-panel,
+      .right-panel {
+        width: 100%;
+        height: auto;
+      }
+
+      .title {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+
+
+<script>  window.addEventListener('mousemove', function(e) {
+  var arr = [1, 0.9, 0.8, 0.5, 0.2];
+
+  arr.forEach(function(i) {
+    var x = (1 - i) * 75;
+    var star = document.createElement('div');
+
+    star.className = 'star';
+    star.style.top = e.pageY + Math.round(Math.random() * x - x / 2) + 'px';
+    star.style.left = e.pageX + Math.round(Math.random() * x - x / 2) + 'px';
+
+    document.body.appendChild(star);
+
+    window.setTimeout(function() {
+      document.body.removeChild(star);
+    }, Math.round(Math.random() * i * 600));
+  });
+}, false);</script>
+<body>
+
+  <div class="top">
+    <h1><img src="spaceLOGO.png" alt="Logo"></h1>
+  </div>
+
+
+  <h1 class="title">Diva’s Shoes!</h1>
+
+
+  <main class="container">
+    <section class="left-panel">
+      <div class="grid">
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+      </div>
+    </section>
+
+    <aside class="right-panel avatar">
+        <img src="{{ url_for('static', filename='pants_page/avatar.png') }}" style="width:800px; height:auto;" alt="Avatar"/>
+    </aside>
+  </main>
+  <script src="{{ url_for('static', filename='glitter.js') }}"></script>
+</body>
+</html>

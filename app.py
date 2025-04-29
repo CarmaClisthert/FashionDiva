@@ -51,7 +51,7 @@ def create_app():
         
         return render_template("signin.html")
     
-    # blueprint to upload clothing items and to view them    
+    # blueprint to upload and view clothing
     import wardrobe
     app.register_blueprint(wardrobe.bp)
     

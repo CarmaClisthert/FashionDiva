@@ -135,50 +135,21 @@
     -->
     {% block content %}
     <!-- Upload Form-->
-    <form action="{{ url_for('wardrobe.upload') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" required>
-        <button type="submit">Upload</button>
+    <form method="POST" action="{{ url_for('wardrobe.upload') }}" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit" value=Upload>Upload</button>
     </form>
 
     <!-- Show Wardrobe Items -->
      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">
         {% for item in items %}
             <div style="text-align: center;">
-                <img src="{{ url_for('static', filename='uploads/' + item['filename']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+                <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
             </div>
         {% endfor %}
      </div>
      {% endblock %}
     <script>
-        function uploadItems() {
-            const uploadMessage = document.getElementById('uploadMessage');
-            const fileInput = document.getElementById('fileUpload');
-            const previewContainer = document.getElementById('preview');
-            previewContainer.innerHTML = ''; // Clear previous previews
-
-            if (fileInput.files.length === 0) {
-                uploadMessage.innerHTML = '<p class="error-message">No files selected.</p>';
-                return;
-            }
-
-            uploadMessage.innerHTML = `<p class="success-message">${fileInput.files.length} file(s) uploaded successfully! Your closet is ready diva!</p>`;
-
-            // Loop through files and preview them if they are images
-            Array.from(fileInput.files).forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        previewContainer.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                }
-                else {
-                    uploadMessage.innerHTML = '<p class="error-message">Only image files are allowed.</p>';
-                }
-            });
-        }
 
         //Function to handle the mouse effect
         window.addEventListener('mousemove', function (e) {

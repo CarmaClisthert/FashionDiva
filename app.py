@@ -2,7 +2,7 @@
 # Created by W. Mariam Sanou on 4/7/25.
 # cd fashiondiva --> source .venv/bin/activate --> flask --app app init-db
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from database.db import get_user, add_user
 from database import db
 
@@ -10,6 +10,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'fashiondiva'
     app.config['DATABASE'] = 'instance/fashiondiva.sqlite'
+    app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
     db.init_app(app)
 
@@ -24,7 +25,9 @@ def create_app():
 
         user = get_user(username)
         if user and user['password'] == password:
-            return redirect(url_for('wardrobe.veiw_wardrobe'))
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('main'))
         else:
             flash('Invalid username or password', 'error')
             return redirect(url_for('signup'))
@@ -47,11 +50,11 @@ def create_app():
                 return redirect(url_for('signup'))
         
         return render_template("signin.html")
-
+    
     # blueprint to upload clothing items and to view them    
     import wardrobe
     app.register_blueprint(wardrobe.bp)
-
+    
     @app.route("/tops")
     def tops():
         return render_template("tops.html")

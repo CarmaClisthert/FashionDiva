@@ -1,7 +1,7 @@
 import os 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 from werkzeug.utils import secure_filename
-from database.db import get_db
+from db import get_db
 
 bp = Blueprint('wardrobe', __name__, url_prefix='/wardrobe')
 
@@ -42,6 +42,25 @@ def upload():
             db.commit()
             return redirect(url_for('wardrobe.view_wardrobe'))
     return render_template("upload_closet.html")
+
+@bp.route('/delete/<int:item_id>', methods=['POST'])
+def delete_item(item_id):
+    db = get_db()
+    item = db.execute('SELECT * FROM clothing_items WHERE id = ? AND user_id = ?', 
+                      (item_id, session['user_id'])).fetchone()
+    
+    if item is None:
+        return redirect(url_for('wardrbe.view_wardrobe'))
+    
+    image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], item['image_path'])
+    if os.path.exists(image_path):
+        os.remove(image_path)
+    
+    db.execute('DELETE FROM clothing_items WHERE id = ?', (item_id,))
+    db.commit()
+    flash('Item deleted successfully!')
+
+    return redirect(url_for('wardrobe.view_wardrobe'))
 
 @bp.route('/debug')
 def debug_db():

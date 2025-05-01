@@ -3,8 +3,8 @@
 # cd fashiondiva --> source .venv/bin/activate --> flask --app app init-db
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from database.db import get_user, add_user
-from database import db
+from db import get_user, add_user
+import db
 
 
 def create_app():

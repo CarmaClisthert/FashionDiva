@@ -49,7 +49,7 @@ def create_app():
                 add_user(name, password)
                 return redirect(url_for('signup'))
         
-        return render_template("signin.html")
+        return render_template("SignIn.html")
     
     # blueprint to upload and view clothing
     import wardrobe

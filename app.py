@@ -3,7 +3,7 @@
 # cd fashiondiva --> source .venv/bin/activate --> flask --app app init-db
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from db import get_user, add_user
+from db import get_user, add_user, get_wardrobe_class
 import db
 
 
@@ -59,10 +59,12 @@ def create_app():
     @app.route("/tops")
     def tops():
         return render_template("tops.html")
-
+    
     @app.route("/pants")
+    # database will call for whatever class that is passed through get_wardrobe_class function
     def pants():
-        return render_template("pants.html")
+        items = get_wardrobe_class('pants')
+        return render_template("pants.html", items=items)
 
     @app.route("/accessories")
     def accessories():

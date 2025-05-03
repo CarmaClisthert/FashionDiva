@@ -4,7 +4,7 @@ import shutil
 from datetime import datetime
 
 import click
-from flask import Flask, current_app, g
+from flask import Flask, current_app, g, session
 
 def get_db():
     if 'db' not in g:
@@ -25,6 +25,14 @@ def get_user(username):
     db = get_db()
     return db.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
 
+def get_wardrobe():
+    db = get_db()
+    return db.execute('SELECT * FROM clothing_items WHERE user_id = ?', (session['user_id'],)).fetchall()
+
+# Use this for individual item_types
+def get_wardrobe_class(item_type):
+    db = get_db()
+    return db.execute('SELECT * FROM clothing_items WHERE user_id = ? AND item_type = ?', (session['user_id'], item_type,)).fetchall()
 
 def close_db(e=None):
     db = g.pop('db', None)

@@ -161,14 +161,22 @@
   <div class="top">
     <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto;" alt="Fashion Diva Logo">
   </div>
-
+  
 
   <h1 class="title">Diva's Pants!</h1>
-
-
+  
+  <!-- This can be a grid that takes in items, for each item create a grid-tiem that can manipulated-->
+  {% block content %}
   <main class="container">
     <section class="left-panel">
       <div class="grid">
+        {% for item in items %}
+          <div class="grid-item"><div class="decor-block"></div>
+          <div>
+            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+          </div>
+        </div>
+        {% endfor %}
         <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
         <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
         <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
@@ -183,7 +191,7 @@
         <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
       </div>
     </section>
-
+    {% endblock %}
     <aside class="right-panel avatar">
         <img src="{{ url_for('static', filename='pants_page/avatar.png') }}" style="width:800px; height:auto;" alt="Avatar"/>
         

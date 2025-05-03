@@ -1,7 +1,7 @@
 import os 
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 from werkzeug.utils import secure_filename
-from db import get_db
+from db import get_db, get_wardrobe_class, get_wardrobe
 
 bp = Blueprint('wardrobe', __name__, url_prefix='/wardrobe')
 
@@ -13,8 +13,7 @@ def allowed_file(filename):
 
 @bp.route('/', methods=['GET', 'POST'])
 def view_wardrobe():
-    db = get_db()
-    items = db.execute('SELECT * FROM clothing_items WHERE user_id = ?', (session['user_id'],)).fetchall()
+    items = get_wardrobe()
     return render_template('upload_closet.html', items=items)
 
 @bp.route('/upload', methods=['GET', 'POST'])
@@ -33,11 +32,11 @@ def upload():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-
+            
             db = get_db()
             db.execute(
-                'INSERT INTO clothing_items (user_id, image_path) VALUES(?, ?)',
-                (session['user_id'], filename),
+                'INSERT INTO clothing_items (user_id, image_path, item_type) VALUES(?, ?, ?)',
+                (session['user_id'], filename, 'pants'),
             )
             db.commit()
             return redirect(url_for('wardrobe.view_wardrobe'))
@@ -58,7 +57,6 @@ def delete_item(item_id):
     
     db.execute('DELETE FROM clothing_items WHERE id = ?', (item_id,))
     db.commit()
-    flash('Item deleted successfully!')
 
     return redirect(url_for('wardrobe.view_wardrobe'))
 

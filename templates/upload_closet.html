@@ -115,36 +115,60 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        .home-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #fe86d0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #ffb3e6;
+            color: #36115F;
+        }
     </style>
 </head>
 
 <body>
     <div class="top">
+        <a href="{{ url_for('main') }}" class="home-button">Home</a>
         <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto;" alt="Fashion Diva Logo">
     </div>
 
     <br><br><br><br><br><br><br><br><br><br>
-    <!--
-    <div class="upload">
-        <h2>Upload Items</h2>
-        <input type="file" id="fileUpload" multiple /> <br>
-        <button class="button" onclick="uploadItems()">Upload</button>
-        <div id="uploadMessage"></div>
-        <div id="preview"></div>
-    </div>
-    -->
+    
     {% block content %}
     <!-- Upload Form-->
-    <form action="{{ url_for('wardrobe.upload') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="image" required>
-        <button type="submit">Upload</button>
-    </form>
 
+    <form method="POST" action="{{ url_for('wardrobe.upload') }}" enctype="multipart/form-data">
+        <select name="item_type" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="tops">Tops</option>
+            <option value="pants">Pants</option>
+            <option value="shoes">Shoes</option>
+            <option value="accessories">Accessories</option>
+
+        </select>
+        <input type="file" name="file" required>
+        <button type="submit" value="Upload">Upload</button>
+    </form>
+    
     <!-- Show Wardrobe Items -->
      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">
         {% for item in items %}
             <div style="text-align: center;">
-                <img src="{{ url_for('static', filename='uploads/' + item['filename']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+                <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+                <form method="post" action="{{ url_for('wardrobe.delete_item', item_id=item['id']) }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                </form>
             </div>
         {% endfor %}
      </div>

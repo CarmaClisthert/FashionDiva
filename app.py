@@ -3,8 +3,9 @@
 # cd fashiondiva --> source .venv/bin/activate --> flask --app app init-db
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from database.db import get_user, add_user
-from database import db
+from db import get_user, add_user, get_wardrobe_class
+import db
+
 
 def create_app():
     app = Flask(__name__)
@@ -47,40 +48,49 @@ def create_app():
                 flash('Passwords do not match', 'error')
             else:
                 add_user(name, password)
+                flash('Successful Registration!')
                 return redirect(url_for('signup'))
         
-        return render_template("SignIn.html")
-    
-    # blueprint to upload and view clothing
+        return render_template("signin.html")
+
+    # Blueprint to upload clothing items and to view them
     import wardrobe
     app.register_blueprint(wardrobe.bp)
-    
+
     @app.route("/tops")
     def tops():
-        return render_template("tops.html")
-        
+        items = get_wardrobe_class('tops')  # Fetch only tops
+        return render_template("tops.html", items=items)
+    
     @app.route("/pants")
     def pants():
-        return render_template("pants.html")
-        
+        items = get_wardrobe_class('pants')  # Fetch only pants
+        return render_template("pants.html", items=items)
+
     @app.route("/accessories")
     def accessories():
-        return render_template("accessories.html")
-        
+        items = get_wardrobe_class('accessories')  # Fetch only accessories
+        return render_template("accessories.html", items=items)
+
     @app.route("/shoes")
     def shoes():
-        return render_template("shoes.html")
-    
+        items = get_wardrobe_class('shoes')  # Fetch only shoes
+        return render_template("shoes.html", items=items)
+
     @app.route("/uploadcloset")
     def upload_closet():
         return render_template("upload_closet.html")
-        
+
     @app.route("/closetsaved")
     def closetsaved():
         return render_template("saved_closet.html")
-  
+
+    @app.route("/ai_page")
+    def ai_page():
+        return render_template("AIdiva.html")
+
     @app.route("/main")
     def main():
         return render_template("mainpage.html")
-    
+
     return app

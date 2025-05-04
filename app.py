@@ -48,6 +48,7 @@ def create_app():
                 flash('Passwords do not match', 'error')
             else:
                 add_user(name, password)
+                flash('Successful Registration!')
                 return redirect(url_for('signup'))
         
         return render_template("signin.html")

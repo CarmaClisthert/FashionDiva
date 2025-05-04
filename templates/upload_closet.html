@@ -115,11 +115,31 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        .home-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #fe86d0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #ffb3e6;
+            color: #36115F;
+        }
     </style>
 </head>
 
 <body>
     <div class="top">
+        <a href="{{ url_for('main') }}" class="home-button">Home</a>
         <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto;" alt="Fashion Diva Logo">
     </div>
 

@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Diva's Shirts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diva's Tops</title>
+
   <style>
     :root {
       --text-black: rgba(0, 0, 0, 1);
@@ -16,12 +18,14 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      cursor: url('https://cur.cursors-4u.net/nature/nat-11/nat1053.cur'), auto;
     }
 
     body {
-      font-family: sans-serif;
+      font-family: var(--font-indie);
       background-color: var(--lavender);
       color: var(--text-black);
+      padding-top: 200px; 
       overflow-x: hidden;
     }
 
@@ -31,6 +35,7 @@
       left: 0;
       right: 0;
       height: 140px;
+      width: 100%;
       background-color: #36115F;
       display: flex;
       justify-content: center;
@@ -45,160 +50,171 @@
 
     .title {
       position: fixed;
-      top: 140px;
+      top: 50px;
       left: 0;
       right: 0;
       background-color: var(--lavender);
-      font-size: 4vw;
+      font-size: 64px;
       text-align: center;
-      padding: 10px;
-      z-index: 999;
+      padding: 5px;
+      z-index: 500;
     }
 
     .container {
       display: flex;
-      flex-direction: row;
-      padding-top: 220px;
-      height: auto;
-      flex-wrap: wrap;
+      padding:5px;
+      margin-top: 5%;
+      height: calc(100vh - 200px); 
     }
 
     .left-panel {
-      flex: 1 1 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: var(--purple);
-      padding: 20px;
-    }
-
-    .avatar-layer {
-      position: relative;
-      width: 40vw;
-      max-width: 400px;
-      aspect-ratio: 2/3;
-    }
-
-    #man, #shirt, #pants {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      width: 100%;
-      height: 100%;
-    }
-
-    #man {
-      background-image: url("avatar.png");
-      z-index: 1;
-    }
-
-    #shirt {
-      z-index: 2;
-    }
-
-    #pants {
-      z-index: 3;
-    }
-
-    .right-panel {
-      flex: 1 1 50%;
-      display: flex;
-      flex-direction: column;
-      background-color: var(--lavender);
+      width: 50%;
       overflow-y: auto;
       padding: 20px;
     }
 
-    .clothing-section {
-      margin-bottom: 30px;
-    }
-
-    .clothing-section h2 {
-      font-size: 2vw;
-      margin-bottom: 10px;
-      color: var(--purple);
-    }
-
-    .scroll-row {
+    .right-panel {
+      width: 50%;
+      height: 100%;
       display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding-bottom: 10px;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--purple);
     }
 
-    .clothing-item {
-      flex: 0 0 auto;
-      height: 150px;
-      width: auto;
-      border-radius: 10px;
-      cursor: pointer;
+    .avatar img {
+      width: 90%;
+      height: auto;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 16px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-item {
+      background-color: var(--pink);
+      padding: 20px;
+      border-radius: 16px;
       transition: transform 0.3s ease;
     }
 
-    .clothing-item:hover {
+    .grid-item:hover {
       transform: scale(1.05);
-      outline: 3px solid var(--pink);
     }
 
-    @media (max-width: 768px) {
+    .decor-img {
+      background-color: var(--blue);
+      width: 100%;
+      height: 100px;
+      border-radius: 8px;
+    }
+  
+    .star {
+	position: fixed;
+	pointer-events: none;
+}
+
+.star:before, .star:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '\2726';
+	font-size: 9px;
+}
+
+.star:before {
+	color: transparent;
+	text-shadow: 0 0 3px rgb(250, 250, 174);
+}
+
+.star:after {
+	background: yellow;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+    @media (max-width: 1024px) {
       .container {
         flex-direction: column;
+        height: auto;
       }
 
-      .avatar-layer {
-        width: 60vw;
+      .left-panel,
+      .right-panel {
+        width: 100%;
+        height: auto;
       }
 
-      .clothing-section h2 {
-        font-size: 24px;
-      }
-
-      .clothing-item {
-        height: 200px;
+      .title {
+        font-size: 48px;
       }
     }
   </style>
 </head>
+
+
+<script>  window.addEventListener('mousemove', function(e) {
+  var arr = [1, 0.9, 0.8, 0.5, 0.2];
+
+  arr.forEach(function(i) {
+    var x = (1 - i) * 75;
+    var star = document.createElement('div');
+
+    star.className = 'star';
+    star.style.top = e.pageY + Math.round(Math.random() * x - x / 2) + 'px';
+    star.style.left = e.pageX + Math.round(Math.random() * x - x / 2) + 'px';
+
+    document.body.appendChild(star);
+
+    window.setTimeout(function() {
+      document.body.removeChild(star);
+    }, Math.round(Math.random() * i * 600));
+  });
+}, false);</script>
 <body>
-  <div class="top">
-    <img src="spaceLOGO.png" alt="Logo">
-  </div>
 
-  <h1 class="title">Diva’s Shirts!</h1>
 
-  <div class="container">
-    <div class="left-panel">
-      <div class="avatar-layer">
-        <div id="man"></div>
-        <div id="shirt"></div>
-        <div id="pants"></div>
-      </div>
-    </div>
+  
 
-    <div class="right-panel">
-      <div class="clothing-section">
-        <h2>Shirts</h2>
-        <div class="scroll-row">
-          <img src="GBlueShirt.png" alt="Blue Shirt" class="clothing-item" onclick="setShirt('GBlueShirt.png')">
-          <img src="GGreenShirt.png" alt="Green Shirt" class="clothing-item" onclick="setShirt('GGreenShirt.png')">
-          <img src="GPinkShirt.png" alt="Pink Shirt" class="clothing-item" onclick="setShirt('GPinkShirt.png')">
+  <h1 class="title">Diva's Tops!</h1>
+  
+  <!-- This can be a grid that takes in items, for each item create a grid-tiem that can manipulated-->
+  {% block content %}
+  <main class="container">
+    <section class="left-panel">
+      <div class="grid">
+        {% for item in items %}
+          <div class="grid-item"><div class="decor-block"></div>
+          <div>
+            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;" >
+          </div>
         </div>
+        {% endfor %}
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
+        <div class="grid-item"><div class="decor-block"></div><div class="decor-img"></div></div>
       </div>
+    </section>
+    {% endblock %}
+    
+  </main>
+<script src="{{ url_for('static', filename='glitter.js') }}"></script>
 
-    </div>
-  </div>
-
-  <script>
-    function setShirt(imageFile) {
-      document.getElementById("shirt").style.backgroundImage = `url('${imageFile}')`;
-    }
-
-  </script>
-  <script src="{{ url_for('static', filename='glitter.js') }}"> </script>
 </body>
 </html>

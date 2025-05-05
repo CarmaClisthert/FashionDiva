@@ -147,9 +147,18 @@
     
     {% block content %}
     <!-- Upload Form-->
+
     <form method="POST" action="{{ url_for('wardrobe.upload') }}" enctype="multipart/form-data">
+        <select name="item_type" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="tops">Tops</option>
+            <option value="pants">Pants</option>
+            <option value="shoes">Shoes</option>
+            <option value="accessories">Accessories</option>
+
+        </select>
         <input type="file" name="file" required>
-        <button type="submit" value=Upload>Upload</button>
+        <button type="submit" value="Upload">Upload</button>
     </form>
     
     <!-- Show Wardrobe Items -->

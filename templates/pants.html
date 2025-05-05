@@ -50,7 +50,7 @@
 
     .title {
       position: fixed;
-      top: 140px;
+      top: 50px;
       left: 0;
       right: 0;
       background-color: var(--lavender);
@@ -116,6 +116,29 @@
       border-radius: 8px;
     }
   
+    .star {
+	position: fixed;
+	pointer-events: none;
+}
+
+.star:before, .star:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '\2726';
+	font-size: 9px;
+}
+
+.star:before {
+	color: transparent;
+	text-shadow: 0 0 3px rgb(250, 250, 174);
+}
+
+.star:after {
+	background: yellow;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 
     @media (max-width: 1024px) {
       .container {
@@ -134,7 +157,6 @@
       }
     }
   </style>
-  <link style="text/css" rel="stylesheet" href="{{ url_for('static', filename='glitter.css') }}"> 
 </head>
 
 
@@ -155,12 +177,11 @@
       document.body.removeChild(star);
     }, Math.round(Math.random() * i * 600));
   });
-}, false);</script>
+}, false);
+</script>
 <body>
 
-  <div class="top">
-    <img src="{{ url_for('static', filename='spaceLOGO.png') }}" style="width: 200px; height: auto;" alt="Fashion Diva Logo">
-  </div>
+
   
 
   <h1 class="title">Diva's Pants!</h1>
@@ -173,7 +194,7 @@
         {% for item in items %}
           <div class="grid-item"><div class="decor-block"></div>
           <div>
-            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;">
+            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;" >
           </div>
         </div>
         {% endfor %}
@@ -192,11 +213,9 @@
       </div>
     </section>
     {% endblock %}
-    <aside class="right-panel avatar">
-        <img src="{{ url_for('static', filename='pants_page/avatar.png') }}" style="width:800px; height:auto;" alt="Avatar"/>
-        
-    </aside>
+   
   </main>
-<script src="{{ url_for('static', filename='glitter.js') }}">
+<script src="{{ url_for('static', filename='glitter.js') }}"></script>
+
 </body>
 </html>

@@ -53,27 +53,29 @@ def create_app():
         
         return render_template("signin.html")
 
-    # blueprint to upload clothing items and to view them
+    # Blueprint to upload clothing items and to view them
     import wardrobe
     app.register_blueprint(wardrobe.bp)
 
     @app.route("/tops")
     def tops():
-        return render_template("tops.html")
+        items = get_wardrobe_class('tops')  # Fetch only tops
+        return render_template("tops.html", items=items)
     
     @app.route("/pants")
-    # database will call for whatever class that is passed through get_wardrobe_class function
     def pants():
-        items = get_wardrobe_class('pants')
+        items = get_wardrobe_class('pants')  # Fetch only pants
         return render_template("pants.html", items=items)
 
     @app.route("/accessories")
     def accessories():
-        return render_template("accessories.html")
+        items = get_wardrobe_class('accessories')  # Fetch only accessories
+        return render_template("accessories.html", items=items)
 
     @app.route("/shoes")
     def shoes():
-        return render_template("shoes.html")
+        items = get_wardrobe_class('shoes')  # Fetch only shoes
+        return render_template("shoes.html", items=items)
 
     @app.route("/uploadcloset")
     def upload_closet():

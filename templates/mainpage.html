@@ -145,7 +145,6 @@
       z-index: 1003;
     }
 
-
     .ai-interface {
       width: 900px;
       height: 588px;
@@ -171,8 +170,26 @@
       border-radius: 0 10px 0 10px;
       font-size: 14px;
     }
+    .avatar-container {
+      position: relative;
+      width: 250px; /* Adjust to fit your avatar */
+      height: auto;
+    }
 
- 
+    .avatar-base {
+      width: 100%;
+      display: block;
+    }
+
+    #top-layer {
+      position: absolute;
+      top: 20%;   /* Adjust this to align the shirt vertically */
+      left: 18%;  /* Adjust this to align the shirt horizontally */
+      width: 60%; /* Scale shirt size appropriately */
+      pointer-events: none;
+      z-index: 2;
+    }
+    
   </style>
   <link style="text/css" rel="stylesheet" href="{{ url_for('static', filename='glitter.css') }}"></link>
   
@@ -218,7 +235,12 @@
     
 
     <!-- 3D Model -->
-    <img src="{{ url_for('static', filename='avatar.png') }}" class="model" alt="3D Model">
+    <div id="avatar-container" style="position: relative; width: 372px; height: 566.5px;">
+      <img src="{{ url_for('static', filename='avatar.png') }}" style="position: absolute; top: 0; left: 0; width: 100%;">
+      <img id="top-layer" style="position: absolute; top: 85px; left: 95px; width: 160px; display: none;">
+      <img id="pants-layer" style="position: absolute; top: 210px; left: 97px; width: 150px; height: 250px; display: none;">
+      <img id="shoes-layer" style="position: absolute; top: 420px; left: 60px; width: 120px; display: none;">
+    </div>
 
   </div> <!-- END Main Content -->
 
@@ -273,6 +295,22 @@
         iframe.src = url; // Change source after fading out
         iframe.style.opacity = 1; // Fade in the new page
       }, 300); // Matches CSS transition time
+    }
+
+    function applyTop(imageSrc) {
+      const avatarImage = document.getElementById('top-layer');
+      if (avatarImage) {
+      avatarImage.src = imageSrc;
+      avatarImage.style.display = 'block';
+      }
+    }
+
+    function applyPant(imageSrc) {
+      const avatarImage = document.getElementById('pants-layer');
+      if (avatarImage) {
+      avatarImage.src = imageSrc;
+      avatarImage.style.display = 'block';
+      }
     }
   </script>
   

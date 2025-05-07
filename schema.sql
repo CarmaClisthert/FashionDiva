@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS clothing_items;
 
@@ -13,13 +12,9 @@ CREATE TABLE clothing_items (
     user_id INTEGER NOT NULL,
     image_path TEXT NOT NULL,
     item_type TEXT,
-    category TEXT,  
+
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id) 
-    
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
-ALTER TABLE clothing_items ADD COLUMN category TEXT;
-
-
 
 

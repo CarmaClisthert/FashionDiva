@@ -32,7 +32,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 -> Install dependencies
-pip install Flask opencv-python torch pillow
+pip install Flask
+pip install rembg
+pip install onnxruntime
+
 Set environment variable (Mac/Linux)
 export FLASK_APP=app.py
 export FLASK_ENV=development (On Windows use set instead of export)

@@ -194,7 +194,7 @@
         {% for item in items %}
           <div class="grid-item"><div class="decor-block"></div>
           <div>
-            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;" >
+            <img src="{{ url_for('static', filename='uploads/' + item['image_path']) }}" alt="Clothing" style="width: 100%; max-width:150px;" onclick="parent.applyPant(this.src)" >
           </div>
         </div>
         {% endfor %}
